@@ -6,14 +6,12 @@ const itemSource = {
     return props.item
   },
   endDrag(props, monitor, component) {
-
-    console.log('hits here..');
-
     if (!monitor.didDrop()) {
       return
     }
-
-    return props.handleDrop(props.item.id)
+    const {targetId} = monitor.getDropResult();
+    const {item} = props;
+    return props.handleDrop(targetId, item.name)
   }
 };
 
@@ -31,6 +29,7 @@ class Item extends Component {
     backgroundColor: 'pink',
     border: '1px solid black',
     maxWidth: '150px',
+    minHeight: '50px',
     margin: '5px',
     padding: '5px',
     textAlign: 'center',
