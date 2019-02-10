@@ -1,28 +1,38 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Item from './components/Item';
+import Target from './components/Target';
+import {DragDropContext} from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
 
 class App extends Component {
+
+  state = {
+    items: [
+      {id: 1, name: 'Item 1'},
+      {id: 2, name: 'Item 2'},
+    ],
+  };
+
+  deleteItem = (id) => {
+    console.log('deleting item id: ' + id)
+  };
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div className="item-container">
+          {this.state.items.map((item, index) => (
+            <Item
+              key={item.id}
+              item={item}
+              handleDrop={(id) => this.deleteItem(id)}
+            />
+            ))}
+        </div>
+        <Target />
       </div>
     );
   }
 }
 
-export default App;
+export default DragDropContext(HTML5Backend)(App);
