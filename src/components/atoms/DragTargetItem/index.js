@@ -15,7 +15,7 @@ function collect(connect, monitor) {
   }
 }
 
-class Target extends Component {
+class DragTargetItem extends Component {
 
   item = null;
 
@@ -49,4 +49,4 @@ class Target extends Component {
   }
 }
 
-export default DropTarget('item', TargetSource, collect)(Target);
+export default DropTarget('item', TargetSource, collect)(DragTargetItem);

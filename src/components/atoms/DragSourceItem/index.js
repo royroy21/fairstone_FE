@@ -23,7 +23,7 @@ function collect(connect, monitor) {
   }
 }
 
-class Item extends Component {
+class DragSourceItem extends Component {
 
   style = {
     backgroundColor: 'pink',
@@ -45,4 +45,4 @@ class Item extends Component {
   }
 }
 
-export default DragSource('item', itemSource, collect)(Item);
+export default DragSource('item', itemSource, collect)(DragSourceItem);
