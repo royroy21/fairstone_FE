@@ -26,19 +26,13 @@ function collect(connect, monitor) {
 class DragSourceItem extends Component {
 
   style = {
-    backgroundColor: 'pink',
-    border: '1px solid black',
-    maxWidth: '200px',
-    minHeight: '50px',
-    margin: '5px',
-    padding: '5px',
-    textAlign: 'center',
+    backgroundColor: '#92ac92',
   };
 
   render() {
     const {isDragging, connectDragSource, item} = this.props;
     return connectDragSource(
-      <div className='item' style={this.style}>
+      <div className='drag-item drag-source-item' style={this.style}>
         <span>{item.name}</span>
       </div>
     )

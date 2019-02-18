@@ -20,12 +20,6 @@ class DragTargetItem extends Component {
   item = null;
 
   style = {
-    border: '1px dashed grey',
-    maxWidth: '200px',
-    minHeight: '50px',
-    margin: '5px',
-    padding: '5px',
-    textAlign: 'center',
   };
 
   setItem = (hovered, item) => {
@@ -36,13 +30,13 @@ class DragTargetItem extends Component {
 
   render() {
     const {connectDropTarget, hovered, item} = this.props;
-    const backgroundColor = hovered ? 'lightgrey' : 'white';
+    const backgroundColor = hovered ? 'lightpink' : null;
 
     this.setItem(hovered, item);
     let newStyle = {...this.style, backgroundColor};
 
     return connectDropTarget(
-      <div className='target' style={newStyle}>
+      <div className='drag-item drag-source-item' style={newStyle}>
         <span>{this.props.name}</span>
       </div>
     )

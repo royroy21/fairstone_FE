@@ -110,7 +110,7 @@ export const hero_names_and_types = [
   {'name': 'Hydracox', 'type': hero_types.SEA_MONSTER},
   {'name': 'Zimrge', 'type': hero_types.DEMON},
   {'name': 'Georallopa', 'type': hero_types.CENTAUR},
-  {'name': 'Georgeshark', 'type': hero_types.SEA MONSTER},
+  {'name': 'Georgeshark', 'type': hero_types.SEA_MONSTER},
   {'name': 'Mashgeorge', 'type': hero_types.YETI},
   {'name': 'Cogatia', 'type': hero_types.DEMON},
   {'name': 'Georgedazzle', 'type': hero_types.UNICORN},
