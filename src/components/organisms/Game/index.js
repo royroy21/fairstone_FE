@@ -8,21 +8,23 @@ import DragTargetItem from './../../../components/atoms/DragTargetItem';
 import PlayerInGameStats from './../../../components/molecules/PlayerInGameStats';
 import GameDivider from './../../../components/atoms/GameDivider';
 import withWindowDimensions from '../../../Utils/withWindowDimensions';
+import CreateRandomHero from '../../../Utils/CreateRandomHero';
 
 class Game extends Component {
 
-  itemStyle = {
-    backgroundColor: 'red',
+  createRandomHero = () => {
+    const createRandomHero = new CreateRandomHero();
+    return createRandomHero.createRandomHero()
   };
 
   defaults = {
     enemyItems: [
-      {id: 1, name: 'Item 1'},
-      {id: 2, name: 'Item 2'},
-      {id: 3, name: 'Item 3'},
-      {id: 4, name: 'Item 4'},
-      {id: 5, name: 'Item 5'},
-      {id: 6, name: 'Item 6'},
+      {id: 1, ...this.createRandomHero()},
+      {id: 2, ...this.createRandomHero()},
+      {id: 3, ...this.createRandomHero()},
+      {id: 4, ...this.createRandomHero()},
+      {id: 5, ...this.createRandomHero()},
+      {id: 6, ...this.createRandomHero()},
     ],
     enemyTargets: [
       {id: 1, name: null},
@@ -33,12 +35,12 @@ class Game extends Component {
       {id: 6, name: null},
     ],
     playerItems: [
-      {id: 1, name: 'Item 1'},
-      {id: 2, name: 'Item 2'},
-      {id: 3, name: 'Item 3'},
-      {id: 4, name: 'Item 4'},
-      {id: 5, name: 'Item 5'},
-      {id: 6, name: 'Item 6'},
+      {id: 1, ...this.createRandomHero()},
+      {id: 2, ...this.createRandomHero()},
+      {id: 3, ...this.createRandomHero()},
+      {id: 4, ...this.createRandomHero()},
+      {id: 5, ...this.createRandomHero()},
+      {id: 6, ...this.createRandomHero()},
     ],
     playerTargets: [
       {id: 1, name: null},

@@ -1,6 +1,6 @@
 import { hero_names_and_types } from './Constants'
 
-class CreateRandomHero {
+export default class CreateRandomHero {
 
   createBase = () => {
     return hero_names_and_types[Math.floor(Math.random() * hero_names_and_types.length)]
@@ -15,6 +15,8 @@ class CreateRandomHero {
     newHero.points = (attack + defence) / 20 * 10;
     newHero.inPlay = false;
     newHero.isDead = false;
+
+    return newHero;
   };
 
 }
