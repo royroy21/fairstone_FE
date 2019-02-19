@@ -9,10 +9,10 @@ export default class CreateRandomHero {
   createRandomHero = () => {
     const newHero = this.createBase();
     const attack = Math.floor((Math.random() * 10) + 1);
-    const defence = Math.floor((Math.random() * 10) + 1);
-    newHero.attack = Math.floor((Math.random() * 10) + 1);
-    newHero.health = Math.floor((Math.random() * 10) + 1);
-    newHero.points = (attack + defence) / 20 * 10;
+    const health = Math.floor((Math.random() * 10) + 1);
+    newHero.attack = attack;
+    newHero.health = health;
+    newHero.points = Math.ceil((attack + health) * 0.5);
     newHero.inPlay = false;
     newHero.isDead = false;
 
