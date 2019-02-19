@@ -11,33 +11,30 @@ function collect(connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
     hovered: monitor.isOver(),
-    item: monitor.getItem(),
+    hero: monitor.getItem(),
   }
 }
 
 class DragTargetItem extends Component {
 
-  item = null;
-
-  style = {
-  };
-
-  setItem = (hovered, item) => {
-    if (hovered && item) {
-      this.item = item
-    }
+  renderHero = () => {
+    if (this.props.name) {
+      return (
+        <span>{`${this.props.name}`}<br /><br /><br />{`Attack:${this.props.attack}`}<br />{`Health:${this.props.health}`}<br />{`Points:${this.props.points}`}</span>
+      )
+    } else {
+        return null
+      }
   };
 
   render() {
-    const {connectDropTarget, hovered, item} = this.props;
-    const backgroundColor = hovered ? 'lightpink' : null;
-
-    this.setItem(hovered, item);
-    let newStyle = {...this.style, backgroundColor};
+    const {connectDropTarget, hovered, backgroundColor} = this.props;
+    const computedBackgroundColor = hovered ? 'lightpink' : backgroundColor;
+    const newStyle = {...this.style, backgroundColor: computedBackgroundColor};
 
     return connectDropTarget(
       <div className='drag-item drag-source-item' style={newStyle}>
-        <span>{this.props.name}</span>
+        <span>{this.renderHero()}</span>
       </div>
     )
   }

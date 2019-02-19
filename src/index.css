@@ -39,9 +39,9 @@ code {
 
 .drag-item {
   border: 1px solid black;
-  border-radius: 5px; 
-  width: 95px;
-  height: 125px;
+  border-radius: 5px;
+  width: 100px;
+  height: 130px;
   margin: 10px auto;
   padding: 5px;
   text-align: center;

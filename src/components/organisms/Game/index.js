@@ -18,7 +18,7 @@ class Game extends Component {
   };
 
   defaults = {
-    enemyItems: [
+    enemyHeroes: [
       {id: 1, ...this.createRandomHero()},
       {id: 2, ...this.createRandomHero()},
       {id: 3, ...this.createRandomHero()},
@@ -34,7 +34,7 @@ class Game extends Component {
       {id: 5, name: null},
       {id: 6, name: null},
     ],
-    playerItems: [
+    playerHeroes: [
       {id: 1, ...this.createRandomHero()},
       {id: 2, ...this.createRandomHero()},
       {id: 3, ...this.createRandomHero()},
@@ -69,17 +69,31 @@ class Game extends Component {
     });
   };
 
-  dropItem = (targetId, name) => {
-    let targets = this.state.playerTargets;
-    targets.forEach(function (target) {
+  dropItem = (targetId, droppedHero) => {
+    // moves hero to target
+    let playerTargets = this.state.playerTargets;
+    playerTargets.forEach(function (target, index) {
       if (target.id === targetId) {
-        target.name = name
+        let newTarget = {...droppedHero};
+        newTarget.id = targetId;
+        playerTargets[index] = newTarget;
       }
     });
-    this.setState({targets});
+
+    // removes player from hand
+    let playerHeroes = this.state.playerHeroes;
+    playerHeroes.forEach(function (hero, index) {
+      if (hero.id === droppedHero.id) {
+        playerHeroes[index] = {id: targetId, name: null};
+      }
+    });
+
+    this.setState({playerTargets});
   };
 
   render() {
+
+    console.log('state: ', this.state);
 
     const style = {
       width: `${this.props.windowWidth}px`,
@@ -92,21 +106,19 @@ class Game extends Component {
           {/*<PlayerInGameStats />*/}
         {/*</div>*/}
         <div className="drag-source-item-container source-item-container">
-          {this.state.enemyItems.map(item => (
+          {this.state.enemyHeroes.map(hero => (
             <DragSourceItem
-              key={item.id}
-              id={item.id}
-              item={item}
-              handleDrop={(targetId, name) => this.dropItem(targetId, name)}
+              // key={hero.id}
+              {...hero}
+              handleDrop={(targetId, name) => this.dropItem(targetId, hero)}
             />
             ))}
         </div>
         <div className="drag-target-target-container source-item-container">
           {this.state.enemyTargets.map(target => (
             <DragTargetItem
-              key={target.id}
-              id={target.id}
-              name={target.name}
+              // key={target.id}
+              {...target}
             />
             ))}
         </div>
@@ -114,19 +126,17 @@ class Game extends Component {
         <div className="drag-target-target-container source-item-container">
           {this.state.playerTargets.map(target => (
             <DragTargetItem
-              key={target.id}
-              id={target.id}
-              name={target.name}
+              // key={target.id}
+              {...target}
             />
             ))}
         </div>
         <div className="drag-source-item-container source-item-container">
-          {this.state.playerItems.map(item => (
+          {this.state.playerHeroes.map(hero => (
             <DragSourceItem
-              key={item.id}
-              id={item.id}
-              item={item}
-              handleDrop={(targetId, name) => this.dropItem(targetId, name)}
+              // key={hero.id}
+              {...hero}
+              handleDrop={(targetId, hero) => this.dropItem(targetId, hero)}
             />
             ))}
         </div>
