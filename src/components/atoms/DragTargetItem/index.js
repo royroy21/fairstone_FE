@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {DropTarget} from "react-dnd";
 
+import Hero from '../../molecules/Hero';
+
 const TargetSource = {
   drop(props, monitor, component) {
     return {targetId: props.id}
@@ -17,24 +19,14 @@ function collect(connect, monitor) {
 
 class DragTargetItem extends Component {
 
-  renderHero = () => {
-    if (this.props.name) {
-      return (
-        <span>{`${this.props.name}`}<br /><br /><br />{`Attack:${this.props.attack}`}<br />{`Health:${this.props.health}`}<br />{`Points:${this.props.points}`}</span>
-      )
-    } else {
-        return null
-      }
-  };
-
   render() {
-    const {connectDropTarget, hovered, backgroundColor} = this.props;
-    const computedBackgroundColor = hovered ? 'lightpink' : backgroundColor;
-    const newStyle = {...this.style, backgroundColor: computedBackgroundColor};
+    const {connectDropTarget, hovered} = this.props;
+    const computedBackgroundColor = hovered ? '#f8d600' : null;
+    const newStyle = {backgroundColor: computedBackgroundColor};
 
     return connectDropTarget(
-      <div className='drag-item drag-source-item' style={newStyle}>
-        <span>{this.renderHero()}</span>
+      <div className={'drag-item drag-target-item'} style={newStyle}>
+        <span><Hero {...this.props} /></span>
       </div>
     )
   }

@@ -1,6 +1,6 @@
 ::backdrop
 {
-  background-image: url("fantasy-wallpaper.jpg");
+  background-image: url("wallpaper_8bit_3.png");
   background-size: cover;
 }
 
@@ -14,7 +14,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   /* added */
-  background-image: url("fantasy-wallpaper.jpg");
+  background-image: url("wallpaper_8bit_3.png");
   background-size: cover;
 }
 
@@ -24,6 +24,13 @@ code {
 }
 
 .game-container {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-touch-callout: none;
+  -o-user-select: none;
+  -moz-user-select: none;
+  font-size: 0.7em;
 }
 
 .player-in-game-stats-container {
@@ -32,20 +39,28 @@ code {
 }
 
 .source-item-container {
+  font-size: 0.9em;
   margin: 0 auto;
-  width: 60%;
+  width: 65%;
   display: flex;
 }
 
 .drag-item {
-  border: 1px solid black;
-  border-radius: 5px;
-  width: 100px;
-  height: 130px;
+  width: 125px;
+  height: 150px;
   margin: 10px auto;
-  padding: 5px;
   text-align: center;
 }
 
 .drag-source-item {
+}
+
+.drag-target-item {
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.hero {
+  color: white;
+  background: #006bb3;
 }

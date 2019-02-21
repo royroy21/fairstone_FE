@@ -2,6 +2,7 @@ import {cloneDeep} from 'lodash';
 import React, { Component } from 'react';
 import {DragDropContext} from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
+import '../../../NES.css/scss/nes.scss'
 
 import DragSourceItem from './../../../components/atoms/DragSourceItem';
 import DragTargetItem from './../../../components/atoms/DragTargetItem';
@@ -9,8 +10,16 @@ import PlayerInGameStats from './../../../components/molecules/PlayerInGameStats
 import GameDivider from './../../../components/atoms/GameDivider';
 import withWindowDimensions from '../../../Utils/withWindowDimensions';
 import CreateRandomHero from '../../../Utils/CreateRandomHero';
+import ToggleFullScreenButton from "./../../../components/atoms/ToggleFullScreenButton";
 
 class Game extends Component {
+
+  componentDidMount() {
+    const $style = document.createElement("style");
+    document.head.appendChild($style);
+    const randBlue = ~~(Math.random() * 250);
+    $style.innerHTML = `body { color: rgb(10, 10, ${randBlue}); }`;
+  }
 
   createRandomHero = () => {
     const createRandomHero = new CreateRandomHero();
@@ -102,6 +111,8 @@ class Game extends Component {
 
     return (
       <div style={style} className="game-container">
+        <ToggleFullScreenButton />
+        <button className={'nes-btn is-error'} onClick={this.resetState}>RESET</button>
         {/*<div className="player-in-game-stats-container">*/}
           {/*<PlayerInGameStats />*/}
         {/*</div>*/}
@@ -114,7 +125,7 @@ class Game extends Component {
             />
             ))}
         </div>
-        <div className="drag-target-target-container source-item-container">
+        <div className="drag-target-target-container source-item-container containers">
           {this.state.enemyTargets.map(target => (
             <DragTargetItem
               // key={target.id}
@@ -143,7 +154,6 @@ class Game extends Component {
         {/*<div className="player-in-game-stats-container">*/}
           {/*<PlayerInGameStats/>*/}
         {/*</div>*/}
-        <button style={this.buttonStyle} onClick={this.resetState}>RESET</button>
       </div>
     );
   }

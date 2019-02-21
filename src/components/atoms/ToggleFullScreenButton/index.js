@@ -1,6 +1,6 @@
 import React from 'react'
 
-class ToggleFullScreenButton extends React.Component {
+export default class ToggleFullScreenButton extends React.Component {
 
   state = {
     isFullScreen: false,
@@ -36,12 +36,12 @@ class ToggleFullScreenButton extends React.Component {
   };
 
   render() {
-    return <button onClick={this.openFullscreen}>{!this.state.isFullScreen ? (
-      <div>FULL SCREEN</div>
+    return <button
+      className={'nes-btn is-error'}
+      onClick={this.openFullscreen}>{!this.state.isFullScreen ? (
+      <div>{'< >'}</div>
     ) : (
-      <div>EXIT FULL SCREEN</div>
+      <div>{'<>'}</div>
     )}</button>
   }
 }
-
-export default ToggleFullScreenButton

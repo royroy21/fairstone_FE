@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {DragSource} from "react-dnd";
 
+import Hero from '../../molecules/Hero';
+
 const itemSource = {
   beginDrag(props) {
     return props
@@ -25,27 +27,10 @@ function collect(connect, monitor) {
 
 class DragSourceItem extends Component {
 
-  renderHero = () => {
-    if (this.props.name) {
-      return (
-        <span>{`${this.props.name}`}<br /><br /><br />{`Attack:${this.props.attack}`}<br />{`Health:${this.props.health}`}<br />{`Points:${this.props.points}`}</span>
-      )
-    } else {
-        return null
-      }
-  };
-
   render() {
-    const {isDragging, connectDragSource, backgroundColor} = this.props;
-
-    const style = {
-      backgroundColor: backgroundColor,
-    };
-
+    const {isDragging, connectDragSource} = this.props;
     return connectDragSource(
-      <div className='drag-item drag-source-item' style={style}>
-        <span>{this.renderHero()}</span>
-      </div>
+      <div className={'drag-item drag-source-item'}><Hero {...this.props} /></div>
     )
   }
 }
