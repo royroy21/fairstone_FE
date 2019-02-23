@@ -16,7 +16,7 @@ class Hero extends React.Component {
     if (this.props.name) {
       return (
         <div className={computedClassNames}>
-          <span>
+          <span style={{textShadow: '-2px 0 black, 0 2px black, 2px 0 black, 0 -2px black',}}>
             <div style={{height: '20px'}}>{`${this.props.name}`}</div>
             <br /><br /><br />
             {`At: ${this.props.attack}`}

@@ -8,9 +8,15 @@ class App extends React.Component {
     textAlign: 'center',
   };
 
+  headerStyle = {
+    color: '#92cc41',
+    textShadow: '-3px 0 black, 0 3px black, 3px 0 black, 0 -3px black',
+  };
+
   render() {
     return (
       <div style={this.startGameContainerStyle}>
+        <h1 style={this.headerStyle}>Welcome to the FairStone human!</h1>
         <LinkAsButton
           to={'/game'}
           text={'START'}

@@ -11,6 +11,7 @@ import GameDivider from './../../../components/atoms/GameDivider';
 import withWindowDimensions from '../../../Utils/withWindowDimensions';
 import CreateRandomHero from '../../../Utils/CreateRandomHero';
 import ToggleFullScreenButton from "./../../../components/atoms/ToggleFullScreenButton";
+import LinkAsButton from "../../atoms/LinkAsButton";
 
 class Game extends Component {
 
@@ -113,18 +114,22 @@ class Game extends Component {
       <div style={style} className="game-container">
         <ToggleFullScreenButton />
         <button className={'nes-btn is-error'} onClick={this.resetState}>RESET</button>
+        <LinkAsButton
+          to={'/'}
+          text={'QUIT'}
+        />
         {/*<div className="player-in-game-stats-container">*/}
           {/*<PlayerInGameStats />*/}
         {/*</div>*/}
-        <div className="drag-source-item-container source-item-container">
-          {this.state.enemyHeroes.map(hero => (
-            <DragSourceItem
-              // key={hero.id}
-              {...hero}
-              handleDrop={(targetId, name) => this.dropItem(targetId, hero)}
-            />
-            ))}
-        </div>
+        {/*<div className="drag-source-item-container source-item-container">*/}
+          {/*{this.state.enemyHeroes.map(hero => (*/}
+            {/*<DragSourceItem*/}
+              {/*// key={hero.id}*/}
+              {/*{...hero}*/}
+              {/*handleDrop={(targetId, name) => this.dropItem(targetId, hero)}*/}
+            {/*/>*/}
+            {/*))}*/}
+        {/*</div>*/}
         <div className="drag-target-target-container source-item-container containers">
           {this.state.enemyTargets.map(target => (
             <DragTargetItem
