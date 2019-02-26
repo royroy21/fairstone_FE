@@ -12,15 +12,9 @@ import withWindowDimensions from '../../../Utils/withWindowDimensions';
 import CreateRandomHero from '../../../Utils/CreateRandomHero';
 import ToggleFullScreenButton from "./../../../components/atoms/ToggleFullScreenButton";
 import LinkAsButton from "../../atoms/LinkAsButton";
+import Boss from "../../molecules/Boss";
 
 class Game extends Component {
-
-  componentDidMount() {
-    const $style = document.createElement("style");
-    document.head.appendChild($style);
-    const randBlue = ~~(Math.random() * 250);
-    $style.innerHTML = `body { color: rgb(10, 10, ${randBlue}); }`;
-  }
 
   createRandomHero = () => {
     const createRandomHero = new CreateRandomHero();
@@ -37,12 +31,12 @@ class Game extends Component {
       {id: 6, ...this.createRandomHero()},
     ],
     enemyTargets: [
-      {id: 1, name: null},
-      {id: 2, name: null},
-      {id: 3, name: null},
-      {id: 4, name: null},
-      {id: 5, name: null},
-      {id: 6, name: null},
+      {id: 1, isHero: false},
+      {id: 2, isHero: false},
+      {id: 3, isHero: false},
+      {id: 4, isHero: false},
+      {id: 5, isHero: false},
+      {id: 6, isHero: false},
     ],
     playerHeroes: [
       {id: 1, ...this.createRandomHero()},
@@ -53,12 +47,12 @@ class Game extends Component {
       {id: 6, ...this.createRandomHero()},
     ],
     playerTargets: [
-      {id: 1, name: null},
-      {id: 2, name: null},
-      {id: 3, name: null},
-      {id: 4, name: null},
-      {id: 5, name: null},
-      {id: 6, name: null},
+      {id: 1, isHero: false},
+      {id: 2, isHero: false},
+      {id: 3, isHero: false},
+      {id: 4, isHero: false},
+      {id: 5, isHero: false},
+      {id: 6, isHero: false},
     ]
   };
 
@@ -79,27 +73,61 @@ class Game extends Component {
     });
   };
 
-  dropItem = (targetId, droppedHero) => {
+  dropHeroOnPlayerTarget = (targetId, droppedHero) => {
+
     // moves hero to target
     let playerTargets = this.state.playerTargets;
-    playerTargets.forEach(function (target, index) {
+    playerTargets.forEach((target, index) => {
       if (target.id === targetId) {
-        let newTarget = {...droppedHero};
-        newTarget.id = targetId;
-        playerTargets[index] = newTarget;
+        playerTargets[index] = {
+          ...droppedHero,
+          id: targetId,
+          inPlay: true,
+        }
       }
     });
 
     // removes player from hand
     let playerHeroes = this.state.playerHeroes;
-    playerHeroes.forEach(function (hero, index) {
+    playerHeroes.forEach((hero, index) => {
       if (hero.id === droppedHero.id) {
-        playerHeroes[index] = {id: targetId, name: null};
+        playerHeroes[index] = {
+          id: targetId,
+          name: null,
+        };
       }
     });
 
     this.setState({playerTargets});
   };
+
+  dropHeroOnEnemyTarget = (targetId, droppedHero) => {
+
+    console.log('here => ', droppedHero);
+
+    // for now
+
+  };
+
+
+  renderTarget(target) {
+    if (target.isDragSource) {
+      return (
+        <DragSourceItem
+          // key={hero.id}
+          {...target}
+          handleDrop={(targetId, hero) => this.dropHeroOnEnemyTarget(targetId, hero)}
+        />
+      )
+    } else {
+      return (
+        <DragTargetItem
+          // key={target.id}
+          {...target}
+        />
+      )
+    }
+  }
 
   render() {
 
@@ -112,53 +140,51 @@ class Game extends Component {
 
     return (
       <div style={style} className="game-container">
-        <ToggleFullScreenButton />
-        <button className={'nes-btn is-error'} onClick={this.resetState}>RESET</button>
-        <LinkAsButton
-          to={'/'}
-          text={'QUIT'}
-        />
-        {/*<div className="player-in-game-stats-container">*/}
-          {/*<PlayerInGameStats />*/}
+        <div className={'game-container-inner'}>
+          <ToggleFullScreenButton />
+          <button className={'nes-btn is-error'} onClick={this.resetState}>RESET</button>
+          <LinkAsButton
+            to={'/'}
+            text={'QUIT'}
+          />
+          {/*<DragTargetItem><Boss /></DragTargetItem>*/}
+          {/*<div className="player-in-game-stats-container">*/}
+            {/*<PlayerInGameStats />*/}
+          {/*</div>*/}
+          {/*<div className="drag-source-item-container source-item-container">*/}
+            {/*{this.state.enemyHeroes.map(hero => (*/}
+              {/*<DragSourceItem*/}
+                {/*// key={hero.id}*/}
+                {/*{...hero}*/}
+                {/*handleDrop={(targetId, name) => this.dropItem(targetId, hero)}*/}
+              {/*/>*/}
+              {/*))}*/}
+          {/*</div>*/}
+          <div className="drag-target-target-container source-item-container">
+            {this.state.enemyTargets.map(target => (
+              <DragTargetItem
+                // key={target.id}
+                {...target}
+              />
+              ))}
+          </div>
+          <GameDivider />
+          <div className="drag-target-target-container source-item-container">
+            {this.state.playerTargets.map(target => (this.renderTarget(target)))}
+          </div>
+          <div className="drag-source-item-container source-item-container">
+            {this.state.playerHeroes.map(hero => (
+              <DragSourceItem
+                // key={hero.id}
+                {...hero}
+                handleDrop={(targetId, hero) => this.dropHeroOnPlayerTarget(targetId, hero)}
+              />
+              ))}
+          </div>
+          {/*<div className="player-in-game-stats-container">*/}
+            {/*<PlayerInGameStats/>*/}
         {/*</div>*/}
-        {/*<div className="drag-source-item-container source-item-container">*/}
-          {/*{this.state.enemyHeroes.map(hero => (*/}
-            {/*<DragSourceItem*/}
-              {/*// key={hero.id}*/}
-              {/*{...hero}*/}
-              {/*handleDrop={(targetId, name) => this.dropItem(targetId, hero)}*/}
-            {/*/>*/}
-            {/*))}*/}
-        {/*</div>*/}
-        <div className="drag-target-target-container source-item-container containers">
-          {this.state.enemyTargets.map(target => (
-            <DragTargetItem
-              // key={target.id}
-              {...target}
-            />
-            ))}
         </div>
-        <GameDivider />
-        <div className="drag-target-target-container source-item-container">
-          {this.state.playerTargets.map(target => (
-            <DragTargetItem
-              // key={target.id}
-              {...target}
-            />
-            ))}
-        </div>
-        <div className="drag-source-item-container source-item-container">
-          {this.state.playerHeroes.map(hero => (
-            <DragSourceItem
-              // key={hero.id}
-              {...hero}
-              handleDrop={(targetId, hero) => this.dropItem(targetId, hero)}
-            />
-            ))}
-        </div>
-        {/*<div className="player-in-game-stats-container">*/}
-          {/*<PlayerInGameStats/>*/}
-        {/*</div>*/}
       </div>
     );
   }

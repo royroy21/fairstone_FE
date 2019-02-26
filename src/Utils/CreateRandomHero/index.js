@@ -1,9 +1,9 @@
-import { hero_names_and_types } from './Constants'
+import { heroNamesAndTypes } from './Constants'
 
 export default class CreateRandomHero {
 
   createBase = () => {
-    return hero_names_and_types[Math.floor(Math.random() * hero_names_and_types.length)]
+    return heroNamesAndTypes[Math.floor(Math.random() * heroNamesAndTypes.length)]
   };
 
   createRandomHero = () => {

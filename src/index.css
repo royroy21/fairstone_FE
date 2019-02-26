@@ -24,7 +24,10 @@ code {
 }
 
 .game-container {
-  /*border: 1px red solid;*/
+  display: table;
+  position: absolute;
+  top: 0;
+  left: 0;
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
@@ -32,6 +35,11 @@ code {
   -o-user-select: none;
   -moz-user-select: none;
   font-size: 0.7em;
+}
+
+.game-container-inner {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .player-in-game-stats-container {
@@ -64,4 +72,10 @@ code {
 .hero {
   color: white;
   background: #006bb3;
+}
+
+.boss {
+  width: 200px;
+  height: 50px;
+  background-color: pink;
 }
